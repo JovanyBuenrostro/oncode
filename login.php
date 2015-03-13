@@ -115,7 +115,7 @@
                                 <table align="center" width="225px" cellspacing="10" cellpadding="10" border="0px" bordercolor="0" class="table">
                                     <tr>
                                         <td align="right"><h4>Usuario:</h4></td>
-                                        <td align="left"><input type="text" name="usuario" id="usuario" required/>
+                                        <td align="left"><input type="text" name="usuario" id="usuario" required autofocus/>
                                             <div id="errorusuario" style="display:none;color:red;" >
                                                 Debes escribir el nombre de usuario para accesar.
                                             </div>                                                                                                                                    

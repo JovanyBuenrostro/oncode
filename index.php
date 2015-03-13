@@ -2,6 +2,11 @@
 session_start();
 include"conectar.php";
 conectarBD();
+ 						
+						$consultar=mysql_query("SELECT * FROM usuarios where idusuario='".$_SESSION['usuario']."'");
+                        while($imagenperfil=mysql_fetch_array($consultar)){                           
+                        $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD                                                 
+                        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +58,7 @@ conectarBD();
 					<li><a href="price.html">Paquetes</a></li>
 					<li><a href="videos.html">Blog</a></li>					
 					<li><a href="contact.html">Contacto</a></li>
-                    <li>
+                    <li>                     
                     <?php					
 					if($_SESSION["autentificado"]!="si"){					
 					?>                    
@@ -65,12 +70,12 @@ conectarBD();
 					else{
 					?>   
                     <li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php session_start(); echo $_SESSION['usuario']?><b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='<?php echo $imagen?>' alt='' class='perfilHeader' width="50px" height="52px"/><b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Mi perfil</a></li>
 							<li><a href="salir.php">Cerrar Sesi&oacute;n</a></li>
 						</ul>
-					</li>                 
+					</li>   
                     <?php
 					}
 					?>

@@ -73,7 +73,64 @@
 		<div class="row">
 
 			<!-- Article main content -->
-            
+            <div id="courses">
+		<section class="container">
+			<h3>Development Courses</h3>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>Responsive Design</h3>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>HTML5/CSS3</h3>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>Web Designing</h3>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>Web App Dev</h3>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>Data Base</h3>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>Mobile App Dev</h3>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+	</div>
             <!-- /Article -->
 
 			<!-- Sidebar -->

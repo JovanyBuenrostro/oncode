@@ -1042,8 +1042,8 @@ list-style: none;
 }
 
 .logo{
- z-index: 1000000000;   
-    position: relative;
+ z-index: 100000;   
+    position: absolute;
     
 }
 .log{            
@@ -1080,4 +1080,10 @@ border-radius:180px;
 border:thin black;
 width:150px;
 height:140px;	
+}
+.perfilHeader{
+border-radius:100px;
+border:thin black;
+max-width:100%;
+box-shadow:0px 0px 50px 0px rgba(0,0,0,0.4); 	
 }

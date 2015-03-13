@@ -20,7 +20,10 @@
 	if(mysql_num_rows($rs)!=0){
 		$row=mysql_fetch_array($rs);
 		$tipo=$row["tipousuario"];
+		
 		session_start();
+		$_SESSION['usuario']=$_REQUEST['usuario'];
+		$_SESSION['password']=$_REQUEST['password'];
 		 $_SESSION["autentificado"]="si";						 	 		
 		 if($tipo=="cliente"){		 		
 		echo "<script type=\"text/javascript\">
