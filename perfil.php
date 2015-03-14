@@ -1,3 +1,55 @@
+<?php
+session_start();
+include"conectar.php";
+conectarBD();
+include"seguridad.php";
+
+		$_SESSION['usuario']=$_REQUEST['usuario'];
+		$_SESSION['password']=$_REQUEST['password'];
+//obtenemos los datos del form
+
+$usuario=$_REQUEST['usuario'];	
+$nombre=$_REQUEST['nombre'];	
+$apellidos=$_REQUEST['apellidos'];
+$email=$_REQUEST['email'];
+$password=$_REQUEST['password'];
+$tipousuario=$_REQUEST['tipousuario'];
+$perfil=$_REQUEST['perfil'];
+
+$correcto="Se ha registrado correctamente, gracias por unirte.";
+$error="Error al intentar registrarte, intentalo de nuevo, verfica tu conexión y tus datos, gracias.";
+
+$rs=mysql_query("select * from usuarios where idusuario='".$_SESSION['usuario']."' and password='".$_SESSION['password']."'");
+	
+	//comparamos las filas obtenidas y direccionamos
+	if(mysql_num_rows($rs)!=0){
+		$row=mysql_fetch_array($rs);
+		$tipo=$row["tipousuario"];
+		
+		session_start();
+		$_SESSION['usuario']=$_REQUEST['usuario'];
+		$_SESSION['password']=$_REQUEST['password'];
+		 $_SESSION["autentificado"]="si";						 	 		
+		 
+	}else{
+		
+	}
+//ejecucion de la sentencia SQL
+$rs2=mysql_query("insert into usuarios values ('".$usuario."','".$nombre."','".$apellidos."','".$email."','".$password."','".$tipousuario."',null,'".$perfil."')") or die("ERROR: ".mysql_error());
+if($rs){
+echo "<script type=\"text/javascript\">alert('".$correcto."');</script>";
+}
+else{
+echo "<script type=\"text/javascript\">alert('".$error."');</script>";
+}
+$encontrado="false";
+
+$consultar=mysql_query("SELECT * FROM usuarios where idusuario='".$_SESSION['usuario']."'");
+while($perfil=mysql_fetch_array($consultar)){                           
+$imagen=$perfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD 
+$nombre=$perfil['nombre'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +60,7 @@
     <meta name="author" content="Oncode">
     <!-- Favicon-->
     <link rel="shortcut icon" href="assets/images/favicon.png" />
-	<title>Oncode</title>
+	<title><?php echo $_SESSION['usuario']?></title>
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/font-awesome.min.css"> 
@@ -22,18 +74,18 @@
 	<![endif]-->
 </head>
 <body>
-	<!-- Fixed navbar -->
+<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="container">
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-				<a class="navbar-brand" href="index.html">
+				<a class="navbar-brand" href="index.php">
 					<img src="assets/images/logo.jpg" alt="" width="100" height="80" class="logo"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right mainNav">
-					<li><a href="index.html">Home</a></li>
+					<li class="active"><a href="index.html">Home</a></li>
 					<li><a href="about.html">Acerca</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Cursos<b class="caret"></b></a>
@@ -48,10 +100,31 @@
 					<li><a href="price.html">Paquetes</a></li>
 					<li><a href="videos.html">Blog</a></li>					
 					<li><a href="contact.html">Contacto</a></li>
-                    <li>
-                    <form method="post" action="login.php">
-                    <input type="submit" class="log" value="Log In"/> 	          
+                    <li>                     
+                    <?php					
+					if($_SESSION["autentificado"]!="si"){					
+					?>                    
+                   <form method="post" action="login.php">
+                    <input type="submit" class="logHead" value="Iniciar Sesión"/> 	          
                     </form>
+                    <form method="post" action="register.php">
+                    <input type="submit" class="registerHead" value="Regístrate ya"/> 	          
+                    </form>
+                    <?php
+					}
+					else{
+					?>   
+                    <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='<?php echo $imagen?>' alt='' class='perfilHeader' width="50px" height="52px"/><b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="perfil.php">Mi perfil</a></li>
+                            <li><a href="perfil.php">Editar Perfil</a></li>
+							<li><a href="salir.php">Cerrar Sesi&oacute;n</a></li>
+						</ul>
+					</li>   
+                    <?php
+					}
+					?>
                     </li>
 				</ul>
 			</div>
@@ -61,9 +134,15 @@
 	<!-- /.navbar -->
 
 	<header id="head" class="secondary">
-            <div class="container">
-                    <h1>Bienvenido</h1>
-                    <p></p>
+            <div class="container">            
+			  <div class="row panel">
+				  <div class="col-xs-12">
+						<h3><?php echo $nombre?></h3>
+						<p>
+							<img src="<?php echo $imagen?>" alt="" class="perfil">
+						</p>
+					</div>
+				</div>                                       
                 </div>
     </header>
 
@@ -131,22 +210,7 @@
 
 		</section>
 	</div>
-            <!-- /Article -->
-
-			<!-- Sidebar -->
-			<aside class="col-md-4 sidebar sidebar-right">
-			  <div class="row panel">
-				  <div class="col-xs-12">
-						<h3>nombre</h3>
-						<p>
-							<img src="assets/images/1.jpg" alt="" class="perfil">
-						</p>
-						<p>Morbi vitae diam felis. Mauris vulputate nisi erat, adipiscing pretium lacus lacinia quis. Sed consectetur ipsum.</p>
-					</div>
-				</div>
-
-			</aside>
-			<!-- /Sidebar -->
+            <!-- /Article -->			
 
 		</div>
 	</section>

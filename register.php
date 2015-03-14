@@ -59,7 +59,7 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 	<![endif]-->
 </head>
 <body>
-		<!-- Fixed navbar -->
+	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="container">
 			<div class="navbar-header">
@@ -120,7 +120,7 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 
 	<header id="head" class="secondary">
             <div class="container">
-                    <h1>Inicia Sesi&oacute;n</h1>
+                    <h1>Reg&iacute;strate</h1>
                     <p></p>
                 </div>
     </header>
@@ -134,7 +134,7 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 <br />
 			<!-- Article main content -->
 <div class="col-lg-10">
- <form  action="acceso.php" method="post" id="formulario" >
+ <form  action="register2.php" method="post" id="formulario" >
 
                                 <?php
                                 //verificar si el usuario fue rechazado
@@ -149,18 +149,50 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
                                 ?>
                                 <table align="center" width="225px" cellspacing="10" cellpadding="10" border="0px" bordercolor="0" class="table">
                                     <tr>
-                                        <td align="right"><h4>Usuario:</h4></td>
+                                        <td align="right"><h4>Nombre de Usuario:</h4></td>
                                         <td align="left"><input type="text" name="usuario" id="usuario" required autofocus/>
                                             <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir el nombre de usuario para accesar.
+                                                Debes escribir un nombre de usuario.
                                             </div>                                                                                                                                    
-                                            <!-- Password -->
                                         </td>
                                     </tr>
-                                    
+                                    <tr>
+                                        <td align="right"><h4>Nombre:</h4></td>
+                                        <td align="left"><input type="text" name="nombre" id="nombre" required />
+                                            <div id="errorusuario" style="display:none;color:red;" >
+                                                Debes escribir tu nombre.
+                                            </div>                                                                                                                                    
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right"><h4>Apellidos:</h4></td>
+                                        <td align="left"><input type="text" name="apellidos" id="apellidos" required />
+                                            <div id="errorusuario" style="display:none;color:red;" >
+                                                Debes escribir tu nombre.
+                                            </div>                                                                                                                                    
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right"><h4>E-mail:</h4></td>
+                                        <td align="left"><input type="email" name="email" id="email" required />
+                                            <div id="errorusuario" style="display:none;color:red;" >
+                                                Debes escribir tu correo.
+                                            </div>                                                                                                                                                                             
+                                        </td>
+                                    </tr>
                                     <br/>
                                     <tr>
                                         <td align="right"><h4>Password:</h4></td>
+                                        <td align="left"><input type="password" name="password" id="password" required/>
+                                            <div id="errorpassword" style="display:none;color:red;" >
+                                                Debes escribir tu contraseña.
+                                            </div>
+
+                                            
+                                            </td>
+                                    </tr>        
+                                    <tr>
+                                        <td align="right"><h4>Confirma tu Password:</h4></td>
                                         <td align="left"><input type="password" name="password" id="password" required/>
                                             <div id="errorpassword" style="display:none;color:red;" >
                                                 Debes escribir tu contraseña.
@@ -172,8 +204,9 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
                                     <tr>
                                     <td align="right"></td>
 										
-                                        <td colspan="2" align="left"><button type="submit" name="enviar" class="log">Entrar</button></td>
-
+                                        <td colspan="2" align="left"><button type="submit" name="enviar" class="log">Registrarme</button></td>
+                                    <input type="hidden" name="tipousuario" id="tipousuario" value="cliente"/>    
+									<input type="hidden" name="perfil" id="perfil" value="assets/images/perfil/default.png"/>                                    
                                     <input type="hidden" name="v_error" id="v-error" value="Required" />
                                     <input type="hidden" name="v_email" id="v-email" value="Enter a valid email" />
 

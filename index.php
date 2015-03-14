@@ -1,12 +1,11 @@
 <?php
 session_start();
 include"conectar.php";
-conectarBD();
- 						
-						$consultar=mysql_query("SELECT * FROM usuarios where idusuario='".$_SESSION['usuario']."'");
-                        while($imagenperfil=mysql_fetch_array($consultar)){                           
-                        $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD                                                 
-                        }
+conectarBD(); 					
+$consultar=mysql_query("SELECT * FROM usuarios where idusuario='".$_SESSION['usuario']."'");
+while($imagenperfil=mysql_fetch_array($consultar)){                           
+$imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD                                                 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +62,10 @@ conectarBD();
 					if($_SESSION["autentificado"]!="si"){					
 					?>                    
                    <form method="post" action="login.php">
-                    <input type="submit" class="log" value="Log In"/> 	          
+                    <input type="submit" class="logHead" value="Iniciar Sesión"/> 	          
+                    </form>
+                    <form method="post" action="register.php">
+                    <input type="submit" class="registerHead" value="Regístrate ya"/> 	          
                     </form>
                     <?php
 					}
@@ -72,7 +74,8 @@ conectarBD();
                     <li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='<?php echo $imagen?>' alt='' class='perfilHeader' width="50px" height="52px"/><b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Mi perfil</a></li>
+							<li><a href="perfil.php">Mi perfil</a></li>
+                            <li><a href="perfil.php">Editar Perfil</a></li>
 							<li><a href="salir.php">Cerrar Sesi&oacute;n</a></li>
 						</ul>
 					</li>   

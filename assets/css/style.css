@@ -1075,11 +1075,104 @@ list-style: none;
  background-color: #666;
 }
 
+
+
+.register{            
+			float:left;
+            font-size: 15px;
+            background-color: transparent;   
+            position: relative;
+			display: inline-block;
+            background-color: transparent;
+			background: red;
+			color: #fff;
+			text-align: left;
+			border-radius: 0.5em;
+			text-decoration: none;
+			padding: 0.65em 3em 0.65em 3em;
+			border: 0;
+			cursor: pointer;
+			outline: 0;
+			font-weight: 300;
+            z-index: 10000;
+			-moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			-webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			-o-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			-ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+}
+
+.register:hover{
+ background-color: #666;
+}
+
+
+.logHead{            
+			float:left;
+            font-size: 10px;
+            background-color: transparent;   
+            position: relative;
+			display: inline-block;
+            background-color: transparent;
+			background: #1ed300;
+			color: #fff;
+			text-align: left;
+			border-radius: 0.5em;
+			text-decoration: none;
+			padding: 0.65em 3em 0.65em 3em;
+			border: 0;
+			cursor: pointer;
+			outline: 0;
+			font-weight: 300;
+            z-index: 10000;
+			-moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			-webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			-o-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			-ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+}
+
+.logHead:hover{
+ background-color: #666;
+}
+
+
+
+.registerHead{            
+			float:left;
+            font-size: 10px;
+            background-color: transparent;   
+            position: relative;
+			display: inline-block;
+            background-color: transparent;
+			background: red;
+			color: #fff;
+			text-align: left;
+			border-radius: 0.5em;
+			text-decoration: none;
+			padding: 0.65em 3em 0.65em 3em;
+			border: 0;
+			cursor: pointer;
+			outline: 0;
+			font-weight: 300;
+            z-index: 10000;
+			-moz-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			-webkit-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			-o-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			-ms-transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+			transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out, border-bottom-color 0.35s ease-in-out;
+}
+
+.registerHead:hover{
+ background-color: #666;
+}
+
 .perfil{
 border-radius:180px;
 border:thin black;
 width:150px;
-height:140px;	
+height:150px;
+box-shadow:0px 0px 50px 0px rgba(0,0,0,0.4);	
 }
 .perfilHeader{
 border-radius:100px;

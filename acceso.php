@@ -4,8 +4,8 @@
 		$_SESSION['usuario']=$_REQUEST['usuario'];
 		$_SESSION['password']=$_REQUEST['password'];
 		
-		echo $_SESSION['usuario'];
-		echo $_SESSION['password'];
+//echo $_SESSION['usuario'];
+//	echo $_SESSION['password'];
 		
 	//hacemos conexion con la base de datos
 	include("conectar.php");
@@ -27,8 +27,7 @@
 		 $_SESSION["autentificado"]="si";						 	 		
 		 if($tipo=="cliente"){		 		
 		echo "<script type=\"text/javascript\">
-	     window.location='perfil.php';
-		alert('Bienvenido Maestro Guillermo, ha iniciado sesión');</script>";											 
+	     window.location='perfil.php';</script>";											 
               }
 		  	else if($tipo=="administrador"){
 		 echo "<script type=\"text/javascript\">
