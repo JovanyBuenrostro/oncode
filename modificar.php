@@ -3,8 +3,11 @@ session_start();
 include"conectar.php";
 conectarBD(); 					
 $consultar=mysql_query("SELECT * FROM usuarios where idusuario='".$_SESSION['usuario']."'");
-while($imagenperfil=mysql_fetch_array($consultar)){                           
-$imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD                                                 
+while($perfil=mysql_fetch_array($consultar)){                           
+$imagen=$perfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD
+$nombre=$perfil['nombre'];
+$apellidos=$perfil['apellidos'];
+$email=$perfil['email'];
 }
 ?>
 <!DOCTYPE html>
@@ -120,7 +123,7 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 
 	<header id="head" class="secondary">
             <div class="container">
-                    <h1>Reg&iacute;strate</h1>
+                    <h1>Editar Perfil</h1>
                     <p></p>
                 </div>
     </header>
@@ -134,7 +137,7 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 <br />
 			<!-- Article main content -->
 <div class="col-lg-10">
- <form  action="register2.php" method="post" id="formulario" >
+ <form  action="modificar2.php" method="post" id="formulario" enctype="multipart/form-data" >
 
                                 <?php
                                 //verificar si el usuario fue rechazado
@@ -150,7 +153,7 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
                                 <table align="center" width="225px" cellspacing="10" cellpadding="10" border="0px" bordercolor="0" class="table">
                                     <tr>
                                         <td align="right"><h4>Nombre de Usuario:</h4></td>
-                                        <td align="left"><input type="text" name="usuario" id="usuario" required autofocus/>
+                                        <td align="left"><input type="text" size="50px" name="usuario" id="usuario" value="<?php echo $_SESSION['usuario']?>" required autofocus/>
                                             <div id="errorusuario" style="display:none;color:red;" >
                                                 Debes escribir un nombre de usuario.
                                             </div>                                                                                                                                    
@@ -158,7 +161,7 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
                                     </tr>
                                     <tr>
                                         <td align="right"><h4>Nombre:</h4></td>
-                                        <td align="left"><input type="text" name="nombre" id="nombre" required />
+                                        <td align="left"><input type="text" size="50px" name="nombre" id="nombre" value="<?php echo $nombre ?>" required />
                                             <div id="errorusuario" style="display:none;color:red;" >
                                                 Debes escribir tu nombre.
                                             </div>                                                                                                                                    
@@ -166,7 +169,7 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
                                     </tr>
                                     <tr>
                                         <td align="right"><h4>Apellidos:</h4></td>
-                                        <td align="left"><input type="text" name="apellidos" id="apellidos" required />
+                                        <td align="left"><input type="text" size="50px" name="apellidos" id="apellidos" value="<?php echo $apellidos?>" required />
                                             <div id="errorusuario" style="display:none;color:red;" >
                                                 Debes escribir tu nombre.
                                             </div>                                                                                                                                    
@@ -174,7 +177,7 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
                                     </tr>
                                     <tr>
                                         <td align="right"><h4>E-mail:</h4></td>
-                                        <td align="left"><input type="email" name="email" id="email" required />
+                                        <td align="left"><input type="email" size="50px" name="email" id="email" value="<?php echo $email?>" required />
                                             <div id="errorusuario" style="display:none;color:red;" >
                                                 Debes escribir tu correo.
                                             </div>                                                                                                                                                                             
@@ -183,7 +186,7 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
                                     <br/>
                                     <tr>
                                         <td align="right"><h4>Password:</h4></td>
-                                        <td align="left"><input type="password" name="password" id="password" required/>
+                                        <td align="left"><input type="password" size="50px" name="password" id="password" value="<?php echo $_SESSION['password']?>" required/>
                                             <div id="errorpassword" style="display:none;color:red;" >
                                                 Debes escribir tu contraseña.
                                             </div>
@@ -193,20 +196,31 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
                                     </tr>        
                                     <tr>
                                         <td align="right"><h4>Confirma tu Password:</h4></td>
-                                        <td align="left"><input type="password" name="password" id="password" required/>
+                                        <td align="left"><input type="password" size="50px" name="password" id="password" value="<?php echo $_SESSION['password']?>" required/>
                                             <div id="errorpassword" style="display:none;color:red;" >
                                                 Debes escribir tu contraseña.
                                             </div>
 
                                             
                                             </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align="right"><h4>Foto de perfil:</h4></td>
+                                        
+                                        <td align="left"><input type="file" size="50px" name="perfil" id="perfil" />
+                                            <div id="errorperfil" style="display:none;color:red;" >
+                                                Debes elegir una foto de perfil.
+                                            </div>
+
+                                            
+                                            </td>
                                     </tr>                                   
                                     <tr>
-                                    <td align="right"><input type="hidden" name="tipousuario" id="tipousuario" value="cliente"/>
-									<input type="hidden" name="perfil" id="perfil" value="assets/images/perfil/default.png"/></td>
+                                    <td align="right"> </td>
 										
-                                        <td colspan="2" align="left"><button type="submit" name="enviar" class="log">Registrarme</button></td>
-                                    
+                                        <td colspan="2" align="left"><button type="submit" name="modificar" id="modificar" class="log">Modificar</button></td>
+<!--                                        <td colspan="2" align="left"><button type="submit" name="cancelar" id="cancelar" class="log">Cancelar</button></td>-->
                                     </tr>
                                 </table>  
                             </form>

@@ -3,9 +3,11 @@ session_start();
 include"conectar.php";
 conectarBD(); 					
 $consultar=mysql_query("SELECT * FROM usuarios where idusuario='".$_SESSION['usuario']."'");
-while($imagenperfil=mysql_fetch_array($consultar)){                           
-$imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD                                                 
+while($perfil=mysql_fetch_array($consultar)){                           
+$imagen=$perfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD
+$tipo=$perfil['tipousuario'];
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,15 +31,17 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 	<script src="assets/js/html5shiv.js"></script>
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
+   
 </head>
 <body>
+
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="container">
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-				<a class="navbar-brand" href="index.html">
+				<a class="navbar-brand" href="index.php">
 					<img src="assets/images/logo.jpg" alt="" width="100" height="80" class="logo"></a>
 			</div>
 			<div class="navbar-collapse collapse">
@@ -69,19 +73,42 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
                     </form>
                     <?php
 					}
-					else{
+					elseif($tipo=="administrador"){
 					?>   
                     <li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='<?php echo $imagen?>' alt='' class='perfilHeader' width="50px" height="52px"/><b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="perfil.php">Mi perfil</a></li>
-                            <li><a href="perfil.php">Editar Perfil</a></li>
+                            <li><a href="modificar.php">Editar Perfil</a></li>
+                            <li><a href="opcionesadministrador.php">Opciones Administrativas</a></li>
 							<li><a href="salir.php">Cerrar Sesi&oacute;n</a></li>
 						</ul>
 					</li>   
                     <?php
-					}
-					?>
+					} elseif($tipo=="cliente"){
+					?>   
+                    <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='<?php echo $imagen?>' alt='' class='perfilHeader' width="50px" height="52px"/><b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="perfil.php">Mi perfil</a></li>
+                            <li><a href="modificar.php">Editar Perfil</a></li>
+                            
+							<li><a href="salir.php">Cerrar Sesi&oacute;n</a></li>
+						</ul>
+					</li>   
+                    <?php
+					}else{
+					?>		
+                    <form method="post" action="login.php">
+                    <input type="submit" class="logHead" value="Iniciar Sesión"/> 	          
+                    </form>
+                    <form method="post" action="register.php">
+                    <input type="submit" class="registerHead" value="Regístrate ya"/> 	          
+                    </form>
+                    <?php 
+					}					
+					?>		                    
+                    
                     </li>
 				</ul>
 			</div>
@@ -120,9 +147,11 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 							<div class="icon-box-top grey-box-icon-pos">
 								<img src="assets/images/1.png" alt="" />
 							</div><!--icon box top -->
-							<h4>Online Courses</h4>
-							<p><?php echo $_SESSION['usuario']?></p>
-     						<p><a href="#"><em>Read More</em></a></p>
+							<h4>Cursos en l&iacute;nea</h4>
+							<p>Java</p>
+                            <p>Html & CSS</p>
+                            <p>Android</p>
+     						<p><a href="#"><em>M&aacute;s informaci&oacute;n</em></a></p>
 						</div><!--grey box -->
 					</div><!--/span3-->
 					<div class="col-md-3">
@@ -130,10 +159,9 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 							<div class="icon-box-top grey-box-icon-pos">
 								<img src="assets/images/2.png" alt="" />
 							</div><!--icon box top -->
-							<h4>Meet our Staff</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempus eleifend risus ut congue
-							eset nec lacus elit dor broma.</p>
-     						<p><a href="#"><em>Read More</em></a></p>
+							<h4>Conoce nuestros integrantes</h4>
+							<p></p>
+     						<p><a href="#"><em>M&aacute;s informaci&oacute;n</em></a></p>
 						</div><!--grey box -->
 					</div><!--/span3-->
 					<div class="col-md-3">
@@ -141,10 +169,9 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 							<div class="icon-box-top grey-box-icon-pos">
 								<img src="assets/images/3.png" alt="" />
 							</div><!--icon box top -->
-							<h4>Latest Updates</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempus eleifend risus ut congue
-							eset nec lacus elit dor broma.</p>
-     						<p><a href="#"><em>Read More</em></a></p>
+							<h4>&Uacute;ltimas actualizaciones</h4>
+							<p>Constantemente subiendo nuevos videos</p>
+     						<p><a href="#"><em>M&aacute;s informaci&oacute;n</em></a></p>
 						</div><!--grey box -->
 					</div><!--/span3-->
 					<div class="col-md-3">
@@ -152,64 +179,45 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 							<div class="icon-box-top grey-box-icon-pos">
 								<img src="assets/images/4.png" alt="" />
 							</div><!--icon box top -->
-							<h4>Placements</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempus eleifend risus ut congue
-							eset nec lacus elit dor broma.</p>
-     						<p><a href="#"><em>Read More →</em></a></p>
+							<h4>Aprende</h4>
+							<p>Aprende a programar en distintos lenguajes, aprende de manera f&aacute;cil con nuestro equipo <<span style="color:#1ed300">on</span>code></p>
+     						<p><a href="#"><em>M&aacute;s informaci&oacute;n</em></a></p>
 						</div><!--grey box -->
 					</div><!--/span3-->
 				</div>
     </div>
       <section class="news-box top-margin">
         <div class="container">
-            <h2><span>New Courses</span></h2>
+            <h2><span>Cursos gratuitos</span></h2>
             <div class="row">
-       
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="newsBox">
-                        <div class="thumbnail">
-                            <figure><img src="assets/images/news2.jpg" alt=""></figure>
-                            <div class="caption maxheight2">
-                            <div class="box_inner">
-                                        <div class="box">
-                                            <p class="title"><h5>Developer</h5></p>
-                                            <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
-                                        </div> 
+				
+                       <?php        		
+                        $consultar=mysql_query("SELECT * FROM noticias ORDER BY fecha, hora DESC");
+                        while($noticia=mysql_fetch_array($consultar)){     
+                        $titulo=$noticia['titulo'];
+						$fecha=$noticia['fecha'];
+                        $hora=$noticia['hora'];
+                        $desc=$noticia['descripcion'];
+                        $imagen=$noticia['ruta'];//se le pone 'nombre' porque lleva el nombre/url del campo de la BD                                              
+                        echo"
+                <div class='col-lg-4 col-md-4 col-sm-12'>
+                    <div class='newsBox'>
+                        <div class='thumbnail'>
+                        
+                            <figure><img src=$imagen width='360px' height='150px' alt=''></figure>
+                            <div class='caption maxheight2'>
+                            <div class='box_inner'>
+                                        <div class='box'>
+                                            <p class='title'>$titulo</p>
+                                            <p>$desc</p>
+                                        </div>";
+										}
+										?>                                                                                
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="newsBox">
-                        <div class="thumbnail">
-                            <figure><img src="assets/images/news3.jpg" alt=""></figure>
-                            <div class="caption maxheight2">
-                            <div class="box_inner">
-                                        <div class="box">
-                                            <p class="title"><h5>Photography   </h5></p>
-                                            <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
-                                        </div> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="newsBox">
-                        <div class="thumbnail">
-                            <figure><img src="assets/images/news4.jpg" alt=""></figure>
-                            <div class="caption maxheight2">
-                           <div class="box_inner">
-                                        <div class="box">
-                                            <p class="title"><h5>Audio Editing</h5></p>
-                                            <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
-                                        </div> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div>                               
             </div>
         </div>
     </section>

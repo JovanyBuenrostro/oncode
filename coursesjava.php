@@ -1,10 +1,11 @@
-<?php
+<?php 
 session_start();
 include"conectar.php";
 conectarBD(); 					
-$consultar=mysql_query("SELECT * FROM usuarios where idusuario='".$_SESSION['usuario']."'");
-while($imagenperfil=mysql_fetch_array($consultar)){                           
-$imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD                                                 
+$consultar=mysql_query("SELECT * FROM detallescursos where idcurso='Java' ");
+while($curso=mysql_fetch_array($consultar)){                           
+$ruta=$curso['ruta'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD
+
 }
 ?>
 <!DOCTYPE html>
@@ -24,34 +25,6 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen"> 
 	<link rel="stylesheet" href="assets/css/style.css">
     <link rel='stylesheet' id='camera-css'  href='assets/css/camera.css' type='text/css' media='all'> 
-    <script type="text/javascript" src="style/js/jquery-1.6.2.min.js"></script>
-     <script>
-            $(document).ready(function() {
-                $("#formulario").submit(function() {
-
-                    //validar que los campos no estén en blanco el id usuario 
-                    if ($("#usuario").val().length == 0) {
-                        $("#errorusuario").css("display", "inline");
-                        $("#usuario").focus();
-                        return false;
-                    }
-                    else {
-                        $("#errorUsuario").css("display", "none");
-                    }
-
-                    //validamos el password
-                    if ($("#password").val().length == 0) {
-                        $("#errorpassword").css("display", "inline");
-                        $("#password").focus();
-                        return false;
-                    }
-                    else {
-                        $("#errorPassword").css("display", "none");
-                    }
-                    return true;
-                });
-            });
-        </script>
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="assets/js/html5shiv.js"></script>
@@ -59,7 +32,7 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 	<![endif]-->
 </head>
 <body>
-	<!-- Fixed navbar -->
+<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="container">
 			<div class="navbar-header">
@@ -97,19 +70,33 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
                     </form>
                     <?php
 					}
-					else{
+					elseif($tipo=="administrador"){
+					?>   
+                  <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='<?php echo $imagen?>' alt='' class='perfilHeader' width="50px" height="52px"/><b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="perfil.php">Mi perfil</a></li>
+                            <li><a href="modificar.php">Editar Perfil</a></li>
+                            <li><a href="#">Opciones Administrativas</a></li>
+							<li><a href="salir.php">Cerrar Sesi&oacute;n</a></li>
+						</ul>
+				  </li>   
+                    <?php
+					} elseif($tipo=="cliente"){
 					?>   
                     <li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='<?php echo $imagen?>' alt='' class='perfilHeader' width="50px" height="52px"/><b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="perfil.php">Mi perfil</a></li>
-                            <li><a href="perfil.php">Editar Perfil</a></li>
+                            <li><a href="modificar.php">Editar Perfil</a></li>
+                            
 							<li><a href="salir.php">Cerrar Sesi&oacute;n</a></li>
 						</ul>
 					</li>   
                     <?php
 					}
-					?>
+					?>				                    
+                    
                     </li>
 				</ul>
 			</div>
@@ -118,105 +105,63 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 	</div>
 	<!-- /.navbar -->
 
-	<header id="head" class="secondary">
+		<header id="head" class="java">
             <div class="container">
-                    <h1>Reg&iacute;strate</h1>
-                    <p></p>
+                    <h1>Java</h1>
+                    <p>Cursos programaci&oacute;n en java</p>
                 </div>
     </header>
 
+    
+    <div class="container">
+<h3>Courses</h3>
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</p>
+<br/>
+<ul class="list-unstyled video-list-thumbs row">
+	<li class="col-lg-3 col-sm-4 col-xs-6">
+		<a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
+			<img src="http://i.ytimg.com/vi/ZKOtE9DOwGE/mqdefault.jpg" alt="Barca" class="img-responsive" height="330px" />
+			<h2>Claudio Bravo, antes su debut con el Barça en la Liga</h2>
+			<span class="play-button"></span>
+			<span class="duration">03:15</span>
+		</a>
+	</li>
+	<li class="col-lg-3 col-sm-4 col-xs-6">
+		<a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
+			<img src="http://i.ytimg.com/vi/ZKOtE9DOwGE/mqdefault.jpg" alt="Barca" class="img-responsive" height="130px" />
+			<h2>Claudio Bravo, antes su debut con el Barça en la Liga</h2>
+			<span class="play-button"></span>
+			<span class="duration">03:15</span>
+		</a>
+	</li>
+	<li class="col-lg-3 col-sm-4 col-xs-6">
+		<a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
+			<img src="http://i.ytimg.com/vi/ZKOtE9DOwGE/mqdefault.jpg" alt="Barca" class="img-responsive" height="130px" />
+			<h2>Claudio Bravo, antes su debut con el Barça en la Liga</h2>
+			<span class="play-button"></span>
+			<span class="duration">03:15</span>
+		</a>
+	</li>
+	<li class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
+		<a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
+			<img src="http://i.ytimg.com/vi/ZKOtE9DOwGE/mqdefault.jpg" alt="Barca" class="img-responsive" height="130px" />
+			<h2>Claudio Bravo, antes su debut con el Barça en la Liga</h2>
+			<span class="play-button"></span>
+			<span class="duration">03:15</span>
+		</a>
+	</li> 
+</ul>
+
+</div>
+	<div id="courses"></div>
+    
 	<!-- container -->
-	<section class="container">
-
+	<div class="container">
 		<div class="row">
-<br />
-<br />
-<br />
-			<!-- Article main content -->
-<div class="col-lg-10">
- <form  action="register2.php" method="post" id="formulario" >
-
-                                <?php
-                                //verificar si el usuario fue rechazado
-                                error_reporting(0);
-                                if($_REQUEST["errorusuario"]=="si"){
-                                ?>
-                                <div align="center" style="color:#F30">
-                                    <strong>Datos incorrectos</strong>
-                                </div>
-                                <?php    
-                                }
-                                ?>
-                                <table align="center" width="225px" cellspacing="10" cellpadding="10" border="0px" bordercolor="0" class="table">
-                                    <tr>
-                                        <td align="right"><h4>Nombre de Usuario:</h4></td>
-                                        <td align="left"><input type="text" name="usuario" id="usuario" required autofocus/>
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir un nombre de usuario.
-                                            </div>                                                                                                                                    
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"><h4>Nombre:</h4></td>
-                                        <td align="left"><input type="text" name="nombre" id="nombre" required />
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir tu nombre.
-                                            </div>                                                                                                                                    
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"><h4>Apellidos:</h4></td>
-                                        <td align="left"><input type="text" name="apellidos" id="apellidos" required />
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir tu nombre.
-                                            </div>                                                                                                                                    
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"><h4>E-mail:</h4></td>
-                                        <td align="left"><input type="email" name="email" id="email" required />
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir tu correo.
-                                            </div>                                                                                                                                                                             
-                                        </td>
-                                    </tr>
-                                    <br/>
-                                    <tr>
-                                        <td align="right"><h4>Password:</h4></td>
-                                        <td align="left"><input type="password" name="password" id="password" required/>
-                                            <div id="errorpassword" style="display:none;color:red;" >
-                                                Debes escribir tu contraseña.
-                                            </div>
-
-                                            
-                                            </td>
-                                    </tr>        
-                                    <tr>
-                                        <td align="right"><h4>Confirma tu Password:</h4></td>
-                                        <td align="left"><input type="password" name="password" id="password" required/>
-                                            <div id="errorpassword" style="display:none;color:red;" >
-                                                Debes escribir tu contraseña.
-                                            </div>
-
-                                            
-                                            </td>
-                                    </tr>                                   
-                                    <tr>
-                                    <td align="right"><input type="hidden" name="tipousuario" id="tipousuario" value="cliente"/>
-									<input type="hidden" name="perfil" id="perfil" value="assets/images/perfil/default.png"/></td>
-										
-                                        <td colspan="2" align="left"><button type="submit" name="enviar" class="log">Registrarme</button></td>
-                                    
-                                    </tr>
-                                </table>  
-                            </form>
-                            </div>            
-            <!-- /Article -->
-
-			<!-- Sidebar --><!-- /Sidebar -->
-
-		</div>
-	</section>
+		<!-- Article content --></div>
+	</div>
 	<!-- /container -->
  <footer id="footer">
  

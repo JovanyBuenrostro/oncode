@@ -134,84 +134,106 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 <br />
 			<!-- Article main content -->
 <div class="col-lg-10">
- <form  action="register2.php" method="post" id="formulario" >
+ <!-- Begin form -->
+                    <form method="post" id="noticia" action="noticia2.php" enctype="multipart/form-data">
 
-                                <?php
-                                //verificar si el usuario fue rechazado
-                                error_reporting(0);
-                                if($_REQUEST["errorusuario"]=="si"){
-                                ?>
-                                <div align="center" style="color:#F30">
-                                    <strong>Datos incorrectos</strong>
-                                </div>
-                                <?php    
-                                }
-                                ?>
-                                <table align="center" width="225px" cellspacing="10" cellpadding="10" border="0px" bordercolor="0" class="table">
-                                    <tr>
-                                        <td align="right"><h4>Nombre de Usuario:</h4></td>
-                                        <td align="left"><input type="text" name="usuario" id="usuario" required autofocus/>
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir un nombre de usuario.
-                                            </div>                                                                                                                                    
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"><h4>Nombre:</h4></td>
-                                        <td align="left"><input type="text" name="nombre" id="nombre" required />
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir tu nombre.
-                                            </div>                                                                                                                                    
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"><h4>Apellidos:</h4></td>
-                                        <td align="left"><input type="text" name="apellidos" id="apellidos" required />
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir tu nombre.
-                                            </div>                                                                                                                                    
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"><h4>E-mail:</h4></td>
-                                        <td align="left"><input type="email" name="email" id="email" required />
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir tu correo.
-                                            </div>                                                                                                                                                                             
-                                        </td>
-                                    </tr>
-                                    <br/>
-                                    <tr>
-                                        <td align="right"><h4>Password:</h4></td>
-                                        <td align="left"><input type="password" name="password" id="password" required/>
-                                            <div id="errorpassword" style="display:none;color:red;" >
-                                                Debes escribir tu contraseña.
-                                            </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="2" align="left">
+                            <h1>Ingresar nueva noticia</h1> 
+                            <h3>Para una visualiaci&oacute;n completa, seleccione una imagen con propiedades: </h3>
+                            <p>Anchura: 360 pixeles</p>
+                            <p>Altura: 150 pixeles</p>
+                            </th>
+                            </tr>  
+                            </thead>
+                            <!-- Fin del Encabezado de la tabla -->
+                            <!-- Inicio de fila -->
+                            <tr>
+                                <td align="rigth">T&iacute;tulo:</td> 
+                                <td align="left">
+                                    <input type="text" id="titulo" name="titulo" maxlength="500" size="41" required autofocus placeholder="ej. Mi Título"/>
+                                    <div id="errortitulo" style="display:none;color:red">
+                                        Debes ingresar un t&iacute;tulo
+                                    </div>
+                                </td>      
+                            </tr>
+                            <!-- Fin de la fila -->
 
-                                            
-                                            </td>
-                                    </tr>        
-                                    <tr>
-                                        <td align="right"><h4>Confirma tu Password:</h4></td>
-                                        <td align="left"><input type="password" name="password" id="password" required/>
-                                            <div id="errorpassword" style="display:none;color:red;" >
-                                                Debes escribir tu contraseña.
-                                            </div>
+                            <!-- Inicio de fila -->
+                            <tr>
+                                <td align="rigth">Fecha:</td> 
+                                <td align="left">
+                                
+                                    <input type="text" id="fecha" name="fecha" size="41" value="<?php echo date("Y-m-d")?>" readonly/>
+                                    <div id="errorfecha" style="display:none;color:red">
+                                        Debes seleccionar una fecha y hora.
+                                    </div>
+                                </td>      
+                            </tr>
+                            <!-- Fin de la fila -->
+                             <!-- Inicio de fila -->
+                            <tr>
+                                <td align="rigth"></td> 
+                                <td align="left">                                
+                                    <input type="hidden" id="hora" name="hora" value="<?php echo date("H:i:s")?>"/>
+                                </td>      
+                            </tr>
+                            <!-- Fin de la fila -->
 
-                                            
-                                            </td>
-                                    </tr>                                   
-                                    <tr>
-                                    <td align="right"><input type="hidden" name="tipousuario" id="tipousuario" value="cliente"/>
-									<input type="hidden" name="perfil" id="perfil" value="assets/images/perfil/default.png"/></td>
-										
-                                        <td colspan="2" align="left"><button type="submit" name="enviar" class="log">Registrarme</button></td>
+                            <!-- Inicio de fila -->
+                            <tr>
+                                <td align="rigth">Descripci&oacute;n</td> 
+                                <td align="left">
+                                    <textarea cols="40" rows="10" name="desc" spellcheck="true" required>
+                                    </textarea>
+                                    <div id="errorarea" style="display:none;color:red">
+                                        Debes ingresar la descripci&oacute;n
+                                    </div>
+                                </td>      
+                            </tr>
+                            <!-- Fin de la fila -->  
+                             <!-- Inicio de fila -->
+                            <tr>
+                                <td align="rigth"><br/></td> 
+                                <td align="left">             
                                     
-                                    </tr>
-                                </table>  
-                            </form>
-                            </div>            
-            <!-- /Article -->
+                                </td>      
+                            </tr>
+                            <!-- Fin de la fila --> 
+                            <!-- Inicio de fila -->
+                            <tr>
+                                <td align="rigth">Seleccione la imagen</td> 
+                                <td align="left">             
+                                    <!--<span class="btn btn-default btn-file">-->
+                                    <input type="file" id="imagen" name="imagen" required/>
+                                    <!--</span>-->
+                                    <div id="errorimagen" style="display:none;color:red">
+                                        Debes seleccionar una imagen
+                                    </div>
+                                </td>      
+                            </tr>
+                            <!-- Fin de la fila --> 
+                            <!-- Inicio de fila -->
+                            <tr>
+                                <td align="rigth"><br/></td> 
+                                <td align="left">                                                 
+                                </td>      
+                            </tr>
+                            <!-- Fin de la fila --> 
+                            <!-- Inicio de fila -->
+                            <tr>
+                                <td align="rigth"></td> 
+                                <td align="left"> 
+                                    <input type="submit" class='log' value="Agregar"/>
+                                </td>      
+                            </tr>
+                            <!-- Fin de la fila -->
+
+                        </table>
+                    </form>
+
 
 			<!-- Sidebar --><!-- /Sidebar -->
 

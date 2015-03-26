@@ -3,8 +3,9 @@ session_start();
 include"conectar.php";
 conectarBD(); 					
 $consultar=mysql_query("SELECT * FROM usuarios where idusuario='".$_SESSION['usuario']."'");
-while($imagenperfil=mysql_fetch_array($consultar)){                           
-$imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD                                                 
+while($perfil=mysql_fetch_array($consultar)){                           
+$imagen=$perfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD
+$tipo=$perfil['tipousuario'];
 }
 ?>
 <!DOCTYPE html>
@@ -24,41 +25,15 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen"> 
 	<link rel="stylesheet" href="assets/css/style.css">
     <link rel='stylesheet' id='camera-css'  href='assets/css/camera.css' type='text/css' media='all'> 
-    <script type="text/javascript" src="style/js/jquery-1.6.2.min.js"></script>
-     <script>
-            $(document).ready(function() {
-                $("#formulario").submit(function() {
-
-                    //validar que los campos no estén en blanco el id usuario 
-                    if ($("#usuario").val().length == 0) {
-                        $("#errorusuario").css("display", "inline");
-                        $("#usuario").focus();
-                        return false;
-                    }
-                    else {
-                        $("#errorUsuario").css("display", "none");
-                    }
-
-                    //validamos el password
-                    if ($("#password").val().length == 0) {
-                        $("#errorpassword").css("display", "inline");
-                        $("#password").focus();
-                        return false;
-                    }
-                    else {
-                        $("#errorPassword").css("display", "none");
-                    }
-                    return true;
-                });
-            });
-        </script>
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="assets/js/html5shiv.js"></script>
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
+   
 </head>
 <body>
+
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="container">
@@ -97,19 +72,33 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
                     </form>
                     <?php
 					}
-					else{
+					elseif($tipo=="administrador"){
 					?>   
                     <li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='<?php echo $imagen?>' alt='' class='perfilHeader' width="50px" height="52px"/><b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="perfil.php">Mi perfil</a></li>
-                            <li><a href="perfil.php">Editar Perfil</a></li>
+                            <li><a href="modificar.php">Editar Perfil</a></li>
+                            <li><a href="#">Opciones Administrativas</a></li>
+							<li><a href="salir.php">Cerrar Sesi&oacute;n</a></li>
+						</ul>
+					</li>   
+                    <?php
+					} elseif($tipo=="cliente"){
+					?>   
+                    <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='<?php echo $imagen?>' alt='' class='perfilHeader' width="50px" height="52px"/><b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="perfil.php">Mi perfil</a></li>
+                            <li><a href="modificar.php">Editar Perfil</a></li>
+                            
 							<li><a href="salir.php">Cerrar Sesi&oacute;n</a></li>
 						</ul>
 					</li>   
                     <?php
 					}
-					?>
+					?>				                    
+                    
                     </li>
 				</ul>
 			</div>
@@ -118,105 +107,85 @@ $imagen=$imagenperfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url d
 	</div>
 	<!-- /.navbar -->
 
-	<header id="head" class="secondary">
+		<header id="head" class="secondary">
             <div class="container">
-                    <h1>Reg&iacute;strate</h1>
-                    <p></p>
+                    <h1>Opciones administrativas </h1>
+                    
                 </div>
     </header>
+	<div id="courses">
+		<section class="container">
+			<h3>Opciones administrativas</h3>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>Responsive Design</h3>
+							<img src="assets/images/about.jpg" alt=""/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>HTML5/CSS3</h3>
+							<img src="assets/images/about.jpg" alt=""/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>Web Designing</h3>
+							<img src="assets/images/about.jpg" alt=""/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>Web App Dev</h3>
+							<img src="assets/images/about.jpg" alt=""/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>Data Base</h3>
+							<img src="assets/images/about.jpg" alt=""/>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>Mobile App Dev</h3>
+							<img src="assets/images/about.jpg" alt=""/>
+						</div>
+					</div>
+				</div>
+			</div>
 
+		</section>
+	</div>
+    
 	<!-- container -->
-	<section class="container">
-
+	<div class="container">
 		<div class="row">
-<br />
-<br />
-<br />
-			<!-- Article main content -->
-<div class="col-lg-10">
- <form  action="register2.php" method="post" id="formulario" >
-
-                                <?php
-                                //verificar si el usuario fue rechazado
-                                error_reporting(0);
-                                if($_REQUEST["errorusuario"]=="si"){
-                                ?>
-                                <div align="center" style="color:#F30">
-                                    <strong>Datos incorrectos</strong>
-                                </div>
-                                <?php    
-                                }
-                                ?>
-                                <table align="center" width="225px" cellspacing="10" cellpadding="10" border="0px" bordercolor="0" class="table">
-                                    <tr>
-                                        <td align="right"><h4>Nombre de Usuario:</h4></td>
-                                        <td align="left"><input type="text" name="usuario" id="usuario" required autofocus/>
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir un nombre de usuario.
-                                            </div>                                                                                                                                    
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"><h4>Nombre:</h4></td>
-                                        <td align="left"><input type="text" name="nombre" id="nombre" required />
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir tu nombre.
-                                            </div>                                                                                                                                    
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"><h4>Apellidos:</h4></td>
-                                        <td align="left"><input type="text" name="apellidos" id="apellidos" required />
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir tu nombre.
-                                            </div>                                                                                                                                    
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right"><h4>E-mail:</h4></td>
-                                        <td align="left"><input type="email" name="email" id="email" required />
-                                            <div id="errorusuario" style="display:none;color:red;" >
-                                                Debes escribir tu correo.
-                                            </div>                                                                                                                                                                             
-                                        </td>
-                                    </tr>
-                                    <br/>
-                                    <tr>
-                                        <td align="right"><h4>Password:</h4></td>
-                                        <td align="left"><input type="password" name="password" id="password" required/>
-                                            <div id="errorpassword" style="display:none;color:red;" >
-                                                Debes escribir tu contraseña.
-                                            </div>
-
-                                            
-                                            </td>
-                                    </tr>        
-                                    <tr>
-                                        <td align="right"><h4>Confirma tu Password:</h4></td>
-                                        <td align="left"><input type="password" name="password" id="password" required/>
-                                            <div id="errorpassword" style="display:none;color:red;" >
-                                                Debes escribir tu contraseña.
-                                            </div>
-
-                                            
-                                            </td>
-                                    </tr>                                   
-                                    <tr>
-                                    <td align="right"><input type="hidden" name="tipousuario" id="tipousuario" value="cliente"/>
-									<input type="hidden" name="perfil" id="perfil" value="assets/images/perfil/default.png"/></td>
-										
-                                        <td colspan="2" align="left"><button type="submit" name="enviar" class="log">Registrarme</button></td>
-                                    
-                                    </tr>
-                                </table>  
-                            </form>
-                            </div>            
-            <!-- /Article -->
-
-			<!-- Sidebar --><!-- /Sidebar -->
-
+			<!-- Article content -->
+			<section class="col-sm-12 maincontent">
+				<h3>Responsive Website</h3>
+				<p>
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+				</p>
+				<h3>Bootstrap</h3>
+				<p>Standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+			</section>
 		</div>
-	</section>
+	</div>
 	<!-- /container -->
  <footer id="footer">
  

@@ -4,50 +4,16 @@ include"conectar.php";
 conectarBD();
 include"seguridad.php";
 
-		$_SESSION['usuario']=$_REQUEST['usuario'];
-		$_SESSION['password']=$_REQUEST['password'];
-//obtenemos los datos del form
-
-$usuario=$_REQUEST['usuario'];	
-$nombre=$_REQUEST['nombre'];	
-$apellidos=$_REQUEST['apellidos'];
-$email=$_REQUEST['email'];
-$password=$_REQUEST['password'];
-$tipousuario=$_REQUEST['tipousuario'];
-$perfil=$_REQUEST['perfil'];
-
-$correcto="Se ha registrado correctamente, gracias por unirte.";
-$error="Error al intentar registrarte, intentalo de nuevo, verfica tu conexión y tus datos, gracias.";
-
-$rs=mysql_query("select * from usuarios where idusuario='".$_SESSION['usuario']."' and password='".$_SESSION['password']."'");
-	
-	//comparamos las filas obtenidas y direccionamos
-	if(mysql_num_rows($rs)!=0){
-		$row=mysql_fetch_array($rs);
-		$tipo=$row["tipousuario"];
-		
-		session_start();
-		$_SESSION['usuario']=$_REQUEST['usuario'];
-		$_SESSION['password']=$_REQUEST['password'];
-		 $_SESSION["autentificado"]="si";						 	 		
-		 
-	}else{
-		
-	}
-//ejecucion de la sentencia SQL
-$rs2=mysql_query("insert into usuarios values ('".$usuario."','".$nombre."','".$apellidos."','".$email."','".$password."','".$tipousuario."',null,'".$perfil."')") or die("ERROR: ".mysql_error());
-if($rs){
-echo "<script type=\"text/javascript\">alert('".$correcto."');</script>";
-}
-else{
-echo "<script type=\"text/javascript\">alert('".$error."');</script>";
-}
-$encontrado="false";
-
 $consultar=mysql_query("SELECT * FROM usuarios where idusuario='".$_SESSION['usuario']."'");
-while($perfil=mysql_fetch_array($consultar)){                           
-$imagen=$perfil['perfil'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD 
+while($perfil=mysql_fetch_array($consultar)){  
+$imagen=$perfil['perfil'];//se le pone 'perfil' porque lleva el nombre/url del campo de la BD 
 $nombre=$perfil['nombre'];
+}
+$consultar2=mysql_query("SELECT * FROM cursos where idusuario='".$_SESSION['usuario']."'");
+while($cursos=mysql_fetch_array($consultar2)){  
+$java=$cursos['Java'];//se le pone 'ruta' porque lleva el nombre/url del campo de la BD 
+$android=$cursos['Android'];
+$html=$cursos['Html&Css'];
 }
 ?>
 <!DOCTYPE html>
@@ -118,7 +84,7 @@ $nombre=$perfil['nombre'];
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='<?php echo $imagen?>' alt='' class='perfilHeader' width="50px" height="52px"/><b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="perfil.php">Mi perfil</a></li>
-                            <li><a href="perfil.php">Editar Perfil</a></li>
+                            <li><a href="modificar.php">Editar Perfil</a></li>
 							<li><a href="salir.php">Cerrar Sesi&oacute;n</a></li>
 						</ul>
 					</li>   
@@ -154,60 +120,51 @@ $nombre=$perfil['nombre'];
 			<!-- Article main content -->
             <div id="courses">
 		<section class="container">
-			<h3>Development Courses</h3>
+			<h3>Mis cursos</h3>
 			<div class="row">
+            <?php 
+			if($java=="Si"){
+				
+			?>
 				<div class="col-md-4">
 					<div class="featured-box"> 
 						<div class="text">
-							<h3>Responsive Design</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+							<h3>Java</h3>
+							<a href="java.html"><img src="assets/images/cursos/logo-java.png" alt="" class="imgcursos"/></a>
+						</div>
+					</div>
+				</div>                                
+                            
+                <?php 
+			}
+			if($android=="Si"){
+			?>	            
+				<div class="col-md-4">
+					<div class="featured-box"> 
+						<div class="text">
+							<h3>Android</h3>
+							<img src="assets/images/cursos/logo-java.png" alt=""/>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				 <?php 
+			}
+			if($html=="Si"){
+			?>	
+						<div class="col-md-4">
 					<div class="featured-box"> 
 						<div class="text">
 							<h3>HTML5/CSS3</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+							<img src="assets/images/cursos/logo-java.png" alt=""/>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="featured-box"> 
-						<div class="text">
-							<h3>Web Designing</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						</div>
-					</div>
-				</div>
+            	 <?php 
+			}
+			?>	      
+            			</div>      
 			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="featured-box"> 
-						<div class="text">
-							<h3>Web App Dev</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="featured-box"> 
-						<div class="text">
-							<h3>Data Base</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="featured-box"> 
-						<div class="text">
-							<h3>Mobile App Dev</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						</div>
-					</div>
-				</div>
-			</div>
-
+			
 		</section>
 	</div>
             <!-- /Article -->			
